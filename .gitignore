@@ -1,0 +1,13 @@
+pom.xml
+*jar
+/lib/
+/classes/
+/out/
+/release/
+/target/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+figwheel_server.log
+resources/public/devcards/out
+resources/public/devcards/main.js
