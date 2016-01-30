@@ -13,5 +13,5 @@
   :target-path "target"
   :profiles {
    :dev {
-      :dependencies [[org.omcljs/om "1.0.0-alpha29-SNAPSHOT"]
+      :dependencies [[org.omcljs/om "1.0.0-alpha30"]
                      [figwheel-sidecar "0.5.0-4"]]}})

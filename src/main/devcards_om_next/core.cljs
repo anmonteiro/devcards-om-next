@@ -88,11 +88,13 @@
        (fn []
          (this-as
            this
-           (let [options (-> this (dc/get-props :card) :options)
+           (let [card (dc/get-props this :card)
+                 options (:options card)
                  unique-id (dc/get-state this :omnext$unique-id)
+                 data_atom (dc/get-state this :data_atom)
                  main (cond->> (sab/html [:div {:id unique-id}])
                         (false? (:watch-atom options)) (dc/dont-update (dc/get-state this :state_change_count)))]
-             (dc/render-base this main))))})
+             (dc/render-all-card-elements main data_atom card))))})
 
 (defrecord OmNextDevcard [main-obj opts]
   dc/IDevcard

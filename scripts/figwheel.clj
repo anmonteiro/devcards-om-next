@@ -13,7 +13,6 @@
                 :output-to "resources/public/devcards/main.js"
                 :output-dir "resources/public/devcards/out"
                 :parallel-build true
-                :compiler-stats true
-                :verbose true}}]})
+                :compiler-stats true}}]})
 
 (ra/cljs-repl)
