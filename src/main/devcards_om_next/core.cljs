@@ -99,11 +99,9 @@
 (defrecord OmNextDevcard [main-obj opts]
   dc/IDevcard
   (-devcard [this devcard-opts]
-    (let [card (devcards.core/add-environment-defaults
+    (let [card (dc/add-environment-defaults
                  (assoc devcard-opts
                         :main-obj main-obj
                         :options (merge opts
-                                        (devcards.core/assert-options-map (:options devcard-opts)))))
-         element (js/React.createElement OmNextNode
-                                         #js {"card" card})]
-      element)))
+                                        (dc/assert-options-map (:options devcard-opts)))))]
+      (js/React.createElement OmNextNode #js {"card" card}))))
