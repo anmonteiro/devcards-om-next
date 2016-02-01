@@ -74,7 +74,7 @@
                 ;; Om Next knows how to update itself.
                 (if (get @(:state reconciler) :render)
                   (reload-fn)
-                  (do (println "nay") (mount-fn target)))))))
+                  (mount-fn target))))))
          (fn []))
        :componentWillUnmount
         (fn []
@@ -95,13 +95,3 @@
                  main (cond->> (sab/html [:div {:id unique-id}])
                         (false? (:watch-atom options)) (dc/dont-update (dc/get-state this :state_change_count)))]
              (dc/render-all-card-elements main data_atom card))))})
-
-(defrecord OmNextDevcard [main-obj opts]
-  dc/IDevcard
-  (-devcard [this devcard-opts]
-    (let [card (dc/add-environment-defaults
-                 (assoc devcard-opts
-                        :main-obj main-obj
-                        :options (merge opts
-                                        (dc/assert-options-map (:options devcard-opts)))))]
-      (js/React.createElement OmNextNode #js {"card" card}))))

@@ -1,32 +1,60 @@
 (ns devcards-om-next.core
   (:require [devcards.util.utils :as utils]))
 
-(defmacro om-next-root
+(defn om-next-root*
   ([om-next-comp]
-   (when (utils/devcards-active?)
-     `(om-next-root ~om-next-comp nil {})))
+   (om-next-root* om-next-comp nil {}))
   ([om-next-comp om-next-reconciler]
-   (when (utils/devcards-active?)
-     `(om-next-root ~om-next-comp ~om-next-reconciler {})))
+   (om-next-root* om-next-comp om-next-reconciler {}))
   ([om-next-comp om-next-reconciler options]
    (when (utils/devcards-active?)
-       `(devcards-om-next.core/OmNextDevcard.
-          (let [state# (when-not (om.next/reconciler? ~om-next-reconciler)
-                         (if (map? ~om-next-reconciler)
-                           (atom ~om-next-reconciler)
-                           (atom {})))
-                reconciler# (if (om.next/reconciler? ~om-next-reconciler)
-                              ~om-next-reconciler
-                              (om.next/reconciler {:state state#
-                                                   :parser (om.next/parser {:read (fn [] {:value state#})})}))]
-            {:mount-fn #(om.next/add-root! reconciler# ~om-next-comp %)
-             :reload-fn #(om.next/force-root-render! reconciler#)
-             :data_atom (om.next/app-state reconciler#)
-             :reconciler reconciler#
-             :component ~om-next-comp})
-        ~options))))
+     (let [card-name? (not (nil? (:card-name options)))
+           card-name (when card-name?
+                       (symbol (:card-name options)))
+           make-reconciler `(fn [state#]
+                              (om.next/reconciler
+                                {:state state#
+                                 :parser (om.next/parser
+                                           {:read (fn [] {:value state#})})}))
+           reconciler (if card-name?
+                        `(fn [state#]
+                           (defonce ~card-name
+                             (~make-reconciler state#))
+                           ~card-name)
+                        `(fn [state#]
+                           (~make-reconciler state#)))]
+       `(reify
+          devcards.core/IDevcard
+          (~'-devcard [this# devcard-opts#]
+            (let [init-data# (:initial-data devcard-opts#)
+                  state# (when-not (om.next/reconciler? ~om-next-reconciler)
+                           (cond
+                             (devcards.core/atom-like? init-data#) init-data#
+                             (not (empty? init-data#)) (atom init-data#)
+                             (map? ~om-next-reconciler) (atom ~om-next-reconciler)
+                             (devcards.core/atom-like? ~om-next-reconciler) ~om-next-reconciler
+                             :else (atom {})))
+                  reconciler# (if (om.next/reconciler? ~om-next-reconciler)
+                                ~om-next-reconciler
+                                (~reconciler state#))
+                  main-obj# {:mount-fn #(om.next/add-root! reconciler# ~om-next-comp %)
+                             :reload-fn #(om.next/force-root-render! reconciler#)
+                             :data_atom (om.next/app-state reconciler#)
+                             :reconciler reconciler#
+                             :component ~om-next-comp}
+                  card# (devcards.core/add-environment-defaults
+                          (assoc devcard-opts#
+                            :main-obj main-obj#
+                            :options (merge ~options
+                                       (devcards.core/assert-options-map
+                                         (:options devcard-opts#)))))]
+              (js/React.createElement OmNextNode (cljs.core/js-obj "card" card#)))))))))
+
+(defmacro om-next-root [& args]
+  (apply om-next-root* args))
 
 (defmacro defcard-om-next [& exprs]
   (when (utils/devcards-active?)
-    (let [[vname docu om-next-comp om-next-reconciler options] (devcards.core/parse-card-args exprs 'om-next-root-card)]
-      (devcards.core/card vname docu `(om-next-root ~om-next-comp ~om-next-reconciler) nil options))))
+    (let [[vname docu om-next-comp om-next-reconciler initial-data options] (devcards.core/parse-card-args exprs 'om-next-root-card)
+          card-name (str vname)]
+      (devcards.core/card vname docu `(om-next-root ~om-next-comp ~om-next-reconciler {:card-name ~card-name}) initial-data options))))
