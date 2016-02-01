@@ -136,9 +136,3 @@
   "we can define components with `:once` metadata"
   ComponentWithLocalState
   {})
-
-
-;; TODO:
-;; - Docs saying that if we pass a map to `defcard-om-next`, we will `defonce` a reconciler automatically
-;; - Docs saying that `om-next-root` is not as powerful and doesn't have that ability (so the code won't be reloadable)
-;; -
