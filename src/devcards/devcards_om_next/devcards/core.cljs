@@ -11,7 +11,7 @@
 
     The `om-next-root` will render Om Next components, much the way `om.core/add-root!` does.
     It takes one or two arguments. The first argument is the Om Next component. The second (optional)
-    argument is either a map with the state to pass to the component, or an Om Next reconciler.
+    argument is either a map or atom with the state to pass to the component, or an Om Next reconciler.
 
     The `defcard-om-next` is a shortcut to `(defcard (om-next-root ...))`.
     Its arguments are the same of a normal `defcard`, with the following exception:
@@ -34,18 +34,24 @@
 
 (defonce om-next-root-data {:text "yep"})
 
-#_(defcard om-next-card-ex
-  "This card calls `om-next-root` with one argument, the component"
+(defcard om-next-card-ex-1
+  "This card calls `om-next-root` with one argument, the component. The initial data
+   is passed as an argument to `defcard`."
   (om-next-root Widget)
-  {:text "yep"})
+  om-next-root-data)
 
-#_(defcard om-next-card-reconciler-ex
+(defcard om-next-card-ex-2
+  "This is the same example but `om-next-root` now takes two arguments."
+  (om-next-root Widget om-next-root-data))
+
+(defcard om-next-card-reconciler-ex
   "This card calls `om-next-root` with 2 args, the component and the Om Next reconciler"
   (om-next-root Widget
-    (om/reconciler {:state om-next-root-data
-                    :parser (om/parser {:read (fn [] {:value om-next-root-data})})})))
+    (om/reconciler
+      {:state om-next-root-data
+       :parser (om/parser {:read (fn [] {:value om-next-root-data})})})))
 
-#_(defcard-om-next om-next-no-reconciler
+(defcard-om-next om-next-no-reconciler
   "This `defcard-om-next` card takes the initial state map as its last arg"
   Widget
   om-next-root-data)
@@ -89,7 +95,7 @@
                                       :mutate counter-mutate})
                   :shared {:title "First counter "}}))
 
-#_(defcard-om-next om-next-card-shared-ex-1
+(defcard-om-next om-next-card-shared-ex-1
   om-next-counter-inc
   rec1)
 
@@ -101,7 +107,7 @@
                                       :mutate counter-mutate})
                   :shared {:title "Second counter "}}))
 
-#_(defcard-om-next om-next-card-shared-ex-2
+(defcard-om-next om-next-card-shared-ex-2
   om-next-counter-dec
   rec2)
 
@@ -129,4 +135,10 @@
 (defcard-om-next local-state-om-next-card
   "we can define components with `:once` metadata"
   ComponentWithLocalState
-  local-reconciler)
+  {})
+
+
+;; TODO:
+;; - Docs saying that if we pass a map to `defcard-om-next`, we will `defonce` a reconciler automatically
+;; - Docs saying that `om-next-root` is not as powerful and doesn't have that ability (so the code won't be reloadable)
+;; -
