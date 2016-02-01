@@ -10,7 +10,7 @@
    (when (utils/devcards-active?)
      (let [card-name? (not (nil? (:card-name options)))
            card-name (when card-name?
-                       (symbol (:card-name options)))
+                       (symbol (str (:card-name options) "-reconciler")))
            make-reconciler `(fn [state#]
                               (om.next/reconciler
                                 {:state state#
