@@ -4,7 +4,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.7.228"]
                  [cljs-react-reload "0.1.1"]
-                 [devcards "0.2.1-5-SNAPSHOT"]
+                 [devcards "0.2.1-6"]
                  [sablono "0.5.3"]]
 
   :source-paths ["src/main" "src/devcards"]
