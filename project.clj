@@ -1,4 +1,4 @@
-(defproject devcards-om-next "0.1.0-SNAPSHOT"
+(defproject devcards-om-next "0.1.0"
   :description "Om Next helpers for Devcards"
   :url "http://github.com/anmonteiro/devcards-om-next"
   :dependencies [[org.clojure/clojure "1.8.0"]
