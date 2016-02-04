@@ -1,4 +1,4 @@
-(defproject devcards-om-next "0.1.0"
+(defproject devcards-om-next "0.1.1-SNAPSHOT"
   :description "Om Next helpers for Devcards"
   :url "http://github.com/anmonteiro/devcards-om-next"
   :license {:name "Eclipse Public License"
