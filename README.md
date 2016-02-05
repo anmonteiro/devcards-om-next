@@ -25,9 +25,9 @@ Require the macros along with devcards's.
 
 ```clojure
 (ns my-ns.core
-  (:require [om.next :as om :refer-macros [defui]])
-  (:require-macros [devcards.core :as devcards :refer [defcard]]
-                   [devcards-om-next.core :as devcards-om-next :refer [om-next-root defcard-om-next]]))
+  (:require-macros [devcards.core :as devcards :refer [defcard]])
+  (:require [devcards-om-next.core :as don :refer-macros [om-next-root defcard-om-next]]
+            [om.next :as om :refer-macros [defui]]))
 ```
 
 ## Documentation
