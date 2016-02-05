@@ -1,5 +1,6 @@
 (ns devcards-om-next.core
-  (:require [devcards.util.utils :as utils]))
+  (:require [devcards.core]
+            [devcards.util.utils :as utils]))
 
 (defn om-next-root*
   ([om-next-comp]

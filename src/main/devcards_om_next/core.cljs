@@ -1,9 +1,11 @@
 (ns devcards-om-next.core
-  (:require [devcards.core :as dc]
-            [devcards.util.utils :as utils :refer [html-env?]]
-            [sablono.core :as sab :include-macros true])
   (:require-macros [cljs-react-reload.core :refer [defonce-react-class]]
-                   [devcards.core :as dc-macros]))
+                   [devcards.core :as dc-macros]
+                   [devcards-om-next.core :refer [om-next-root defcard-om-next]])
+  (:require [devcards.core :as dc]
+            [om.next]
+            [om.dom :as dom]
+            [devcards.util.utils :as utils :refer [html-env?]]))
 
 
 (defonce-react-class OmNextNode
@@ -34,8 +36,7 @@
                   unique-id (dc/get-state this :omnext$unique-id)]
               ;; when the component mounts, we can get the data_atom that the
               ;; macro passes in (the Om Next app-state)
-              (.setState this #js {:data_atom data_atom
-                                   :dom_node (sab/html [:div {:id unique-id}])}))))
+              (.setState this #js {:data_atom data_atom}))))
          (fn []))
        :componentDidMount
        (if (html-env?)
@@ -92,6 +93,6 @@
                  options (:options card)
                  unique-id (dc/get-state this :omnext$unique-id)
                  data_atom (dc/get-state this :data_atom)
-                 main (cond->> (sab/html [:div {:id unique-id}])
+                 main (cond->> (dom/div #js {:id unique-id})
                         (false? (:watch-atom options)) (dc/dont-update (dc/get-state this :state_change_count)))]
              (dc/render-all-card-elements main data_atom card))))})
