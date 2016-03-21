@@ -3,9 +3,9 @@
   :url "http://github.com/anmonteiro/devcards-om-next"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.7.228"]
-                 [org.omcljs/om "1.0.0-alpha30"]
+  :dependencies [[org.clojure/clojure "1.8.0" :scope "provided"]
+                 [org.clojure/clojurescript "1.8.34" :scope "provided"]
+                 [org.omcljs/om "1.0.0-alpha31" :scope "provided"]
                  [cljs-react-reload "0.1.1"]
                  [devcards "0.2.1-6"]]
 
