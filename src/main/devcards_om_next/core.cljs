@@ -1,11 +1,10 @@
 (ns devcards-om-next.core
   (:require-macros [cljs-react-reload.core :refer [defonce-react-class]]
-                   [devcards.core :as dc-macros]
                    [devcards-om-next.core :refer [om-next-root defcard-om-next]])
   (:require [devcards.core :as dc]
+            [devcards.util.utils :refer [html-env?]]
             [om.next]
-            [om.dom :as dom]
-            [devcards.util.utils :as utils :refer [html-env?]]))
+            [om.dom :as dom]))
 
 
 (defonce-react-class OmNextNode

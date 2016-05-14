@@ -1,10 +1,9 @@
 (ns devcards-om-next.devcards.core
-  (:require [devcards-om-next.core]
+  (:require [devcards-om-next.core :refer-macros [defcard-om-next om-next-root]]
+            [devcards.core :as dc :refer-macros [defcard-doc defcard]]
             [om.next :as om :refer-macros [defui ui]]
             [om.dom :as dom]
-            [sablono.core :as sab :include-macros true])
-  (:require-macros [devcards.core :as dc :refer [defcard-doc defcard]]
-                   [devcards-om-next.core :as dc-on :refer [defcard-om-next om-next-root]]))
+            [sablono.core :as sab :include-macros true]))
 
 (defcard-doc
    "## Rendering Om Next components with `om-next-root` and `defcard-om-next`
