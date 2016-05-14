@@ -21,12 +21,11 @@ Maven dependency information:
 
 ## Usage
 
-Require the macros along with devcards's.
+Require the `devcards-om-next.core` namespace.
 
 ```clojure
 (ns my-ns.core
-  (:require-macros [devcards.core :as devcards :refer [defcard]])
-  (:require [devcards-om-next.core :as don :refer-macros [om-next-root defcard-om-next]]
+  (:require [devcards-om-next.core :refer-macros [defcard-om-next om-next-root]]
             [om.next :as om :refer-macros [defui]]))
 ```
 
