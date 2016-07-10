@@ -132,6 +132,8 @@
   (om/reconciler {:state {}}))
 
 (defcard-om-next local-state-om-next-card
-  "we can define components with `:once` metadata"
+  "Test that reloading preserves local state. Increment the counters, modify the
+   source (e.g. the button label) and see the updated label with the "
   ComponentWithLocalState
-  {})
+  local-reconciler)
+

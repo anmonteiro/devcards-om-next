@@ -27,7 +27,6 @@
                                  :parser (om.next/parser
                                            {:read (fn [] {:value state#})})}))
                 main-obj# {:mount-fn #(om.next/add-root! reconciler# ~om-next-comp %)
-                           :reload-fn #(om.next/force-root-render! reconciler#)
                            :data_atom (om.next/app-state reconciler#)
                            :reconciler reconciler#
                            :component ~om-next-comp}

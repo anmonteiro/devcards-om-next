@@ -62,18 +62,15 @@
            (this-as
             this
             (let [card (dc/get-props this :card)
-                  main-obj (:main-obj card)
-                  reload-fn (:reload-fn main-obj)
-                  mount-fn (:mount-fn main-obj)
-                  reconciler (:reconciler main-obj)
+                  {:keys [mount-fn component reconciler]} (:main-obj card)
                   unique-id (dc/get-state this :omnext$unique-id)
                   target (js/document.getElementById unique-id)]
               (when (= (dc/get-state this :state_change_count)
                        (.-state_change_count prev-state))
                 ;; force update the component on reload. If the state has changed,
                 ;; Om Next knows how to update itself.
-                (if (get @(:state reconciler) :render)
-                  (reload-fn)
+                (if-let [c (om.next/class->any reconciler component)]
+                  (.forceUpdate c)
                   (mount-fn target))))))
          (fn []))
        :componentWillUnmount
