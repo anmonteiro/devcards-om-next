@@ -15,6 +15,6 @@
   :target-path "target"
   :profiles {
    :dev {
-      :dependencies [[figwheel-sidecar "0.5.3-1"]
-                     [sablono "0.5.3"]
+      :dependencies [[figwheel-sidecar "0.5.4-7"]
+                     [sablono "0.7.2"]
                      [com.cemerick/piggieback "0.2.1"]]}})
