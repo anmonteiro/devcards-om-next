@@ -6,7 +6,7 @@ Devcards extension for writing fully reloadable Om Next cards.
 Leiningen dependency information:
 
 ```clojure
-[devcards-om-next "0.1.1"]
+[devcards-om-next "0.2.0"]
 ```
 
 Maven dependency information:
@@ -15,7 +15,7 @@ Maven dependency information:
 <dependency>
   <groupId>devcards-om-next</groupId>
   <artifactId>devcards-om-next</artifactId>
-  <version>0.1.1</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 
