@@ -23,18 +23,6 @@
                              (= (dc/get-state this :state_change_count)
                                 (.-state_change_count next-state)))]
              update?)))
-       :componentWillMount
-       (if (html-env?)
-         (fn []
-           (this-as
-            this
-            (let [card (dc/get-props this :card)
-                  data_atom (get-in card [:main-obj :data_atom])
-                  unique-id (dc/get-state this :omnext$unique-id)]
-              ;; when the component mounts, we can get the data_atom that the
-              ;; macro passes in (the Om Next app-state)
-              (.setState this #js {:data_atom data_atom}))))
-         (fn []))
        :componentDidMount
        (if (html-env?)
          (fn []
@@ -44,11 +32,10 @@
                   main-obj (:main-obj card)
                   mount-fn (:mount-fn main-obj)
                   unique-id (dc/get-state this :omnext$unique-id)
-                  target (js/document.getElementById unique-id)
-                  data_atom (dc/get-state this :data_atom)]
+                  target (js/document.getElementById unique-id)]
               ;; actually mount the Om Next root into our element
               (mount-fn target)
-              (when-let [data_atom (dc/get-state this :data_atom)]
+              (when-let [data_atom (:data_atom main-obj)]
                   (add-watch data_atom unique-id
                              (fn [_ _ _ _]
                                (.setState this #js {:state_change_count
@@ -75,7 +62,8 @@
         (fn []
           (this-as
            this
-           (let [data_atom (dc/get-state this :data_atom)
+           (let [card (dc/get-props this :card)
+                 data_atom (get-in card [:main-obj :data_atom])
                  id        (dc/get-state this :omnext$unique-id)]
              (when (and data_atom id)
                (remove-watch data_atom id)))))
@@ -86,7 +74,7 @@
            (let [card (dc/get-props this :card)
                  options (:options card)
                  unique-id (dc/get-state this :omnext$unique-id)
-                 data_atom (dc/get-state this :data_atom)
+                 data_atom (get-in card [:main-obj :data_atom])
                  main (cond->> (js/React.createElement "div" #js {:id unique-id})
                         (false? (:watch-atom options)) (dc/dont-update (dc/get-state this :state_change_count)))]
              (dc/render-all-card-elements main data_atom card))))})
