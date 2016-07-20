@@ -3,9 +3,7 @@
                    [devcards-om-next.core :refer [om-next-root defcard-om-next]])
   (:require [devcards.core :as dc]
             [devcards.util.utils :refer [html-env?]]
-            [om.next]
-            [om.dom :as dom]))
-
+            [om.next]))
 
 (defonce-react-class OmNextNode
   #js {:getInitialState
@@ -89,6 +87,6 @@
                  options (:options card)
                  unique-id (dc/get-state this :omnext$unique-id)
                  data_atom (dc/get-state this :data_atom)
-                 main (cond->> (dom/div #js {:id unique-id})
+                 main (cond->> (js/React.createElement "div" #js {:id unique-id})
                         (false? (:watch-atom options)) (dc/dont-update (dc/get-state this :state_change_count)))]
              (dc/render-all-card-elements main data_atom card))))})
