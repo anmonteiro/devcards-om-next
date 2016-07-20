@@ -108,7 +108,8 @@
 
 (defcard-om-next om-next-card-shared-ex-2
   om-next-counter-dec
-  rec2)
+  rec2
+  {:history true})
 
 (defcard om-test-atom-data
   "### You can share an Atom with an `edn-card` too:"

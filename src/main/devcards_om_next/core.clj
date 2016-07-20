@@ -43,5 +43,7 @@
 
 (defmacro defcard-om-next [& exprs]
   (when (utils/devcards-active?)
-    (let [[vname docu om-next-comp om-next-reconciler initial-data options] (devcards.core/parse-card-args exprs 'om-next-root-card)]
-      (devcards.core/card vname docu `(om-next-root ~om-next-comp ~om-next-reconciler) initial-data options))))
+    (let [[vname docu om-next-comp om-next-reconciler initial-data options] (devcards.core/parse-card-args exprs 'om-next-root-card)
+          options (or options initial-data)]
+      (devcards.core/card vname docu `(om-next-root ~om-next-comp ~om-next-reconciler)
+        nil (assoc options :watch-atom true)))))
