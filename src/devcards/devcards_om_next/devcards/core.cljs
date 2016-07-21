@@ -134,7 +134,7 @@
 
 (defcard-om-next local-state-om-next-card
   "Test that reloading preserves local state. Increment the counters, modify the
-   source (e.g. the button label) and see the updated label with the "
+   source (e.g. the button label) and see the updated label with the same counter state"
   ComponentWithLocalState
   local-reconciler)
 
