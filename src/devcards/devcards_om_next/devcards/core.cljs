@@ -124,20 +124,25 @@
     (dom/button #js {:onClick #(om/update-state! c update k inc)} "inc!")))
 
 (defui ^:once ComponentWithLocalState
+  static om/IQuery
+  (query [this]
+    [:count])
   Object
   (initLocalState [this]
     {:a 1
      :b 2})
   (render [this]
-    (dom/div nil
-      (map #(display-state this %) (om/get-state this)))))
+    (let [{:keys [count] :as props} (om/props this)]
+      (dom/div nil
+        (dc/edn props)
+        (map #(display-state this %) (om/get-state this))))))
 
 (defonce local-reconciler
-  (om/reconciler {:state {}}))
+  (om/reconciler {:state om-test-atom
+                  :parser (om/parser {:read counter-read})}))
 
 (defcard-om-next local-state-om-next-card
   "Test that reloading preserves local state. Increment the counters, modify the
    source (e.g. the button label) and see the updated label with the same counter state"
   ComponentWithLocalState
   local-reconciler)
-

@@ -26,7 +26,7 @@
                                 {:state state#
                                  :parser (om.next/parser
                                            {:read (fn [] {:value state#})})}))
-                main-obj# {:mount-fn #(om.next/add-root! reconciler# ~om-next-comp %)
+                main-obj# {:mount-fn #(om.next.protocols/add-root! reconciler# ~om-next-comp nil nil)
                            :data_atom (om.next/app-state reconciler#)
                            :reconciler reconciler#
                            :component ~om-next-comp}
