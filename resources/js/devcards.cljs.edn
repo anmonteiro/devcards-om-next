@@ -1,0 +1,3 @@
+{:require [devcards-om-next.devcards.core]
+ :init-fns [devcards-om-next.devcards.core/init!]
+ :compiler-options {:asset-path "js/devcards.out"}}
