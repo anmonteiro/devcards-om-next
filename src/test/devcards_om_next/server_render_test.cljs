@@ -1,14 +1,12 @@
 (ns devcards-om-next.server-render-test
-  (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cljs.test :refer-macros [deftest testing is are async]]
-            [devcards-om-next.core :refer-macros [defcard-om-next]]
-            [devcards.core :as dc]
-            [cljs.core.async :refer [put! take! <! chan timeout]]
+            [cljs.core.async :refer [take!]]
             [clojure.string :as str]
+            [devcards.core :as dc]
             [devcards.system :as dev]
+            [devcards-om-next.core :refer-macros [defcard-om-next]]
             [om.next :as om :refer-macros [defui]]
             [om.dom :as dom]
-            [sablono.core :as sab :include-macros true]
             [cljsjs.react.dom.server]))
 
 (defn remove-whitespace [s]
