@@ -14,3 +14,4 @@ examples/history
 *init.clj
 .repl*
 figwheel*
+/node_modules/
