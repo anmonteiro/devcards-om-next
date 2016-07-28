@@ -6,6 +6,7 @@
             [sablono.core :as sab :include-macros true]))
 
 (defn init! []
+  (enable-console-print!)
   (start-devcard-ui!))
 
 (defcard-doc

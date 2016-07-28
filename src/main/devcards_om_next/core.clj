@@ -26,10 +26,12 @@
                                 {:state state#
                                  :parser (om.next/parser
                                            {:read (fn [] {:value state#})})}))
-                main-obj# {:mount-fn #(om.next.protocols/add-root! reconciler# ~om-next-comp nil nil)
-                           :data_atom (om.next/app-state reconciler#)
+                main-obj# {:mount-fn   (if (devcards.util.utils/html-env?)
+                                         #(om.next/add-root! reconciler# ~om-next-comp %)
+                                         #(om.next.protocols/add-root! reconciler# ~om-next-comp nil nil))
+                           :data_atom  (om.next/app-state reconciler#)
                            :reconciler reconciler#
-                           :component ~om-next-comp}
+                           :component  ~om-next-comp}
                 card# (devcards.core/add-environment-defaults
                         (assoc devcard-opts#
                           :main-obj main-obj#
