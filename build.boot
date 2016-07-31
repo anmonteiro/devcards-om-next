@@ -4,14 +4,14 @@
  :source-paths    #{"src/main"}
  :resource-paths  #{"resources"}
  :dependencies '[[org.clojure/clojurescript   "1.9.89"         :scope "provided"]
-                 [org.omcljs/om               "1.0.0-alpha40"  :scope "provided"]
+                 [org.omcljs/om               "1.0.0-alpha41"  :scope "provided"]
                  [devcards                    "0.2.1-7"]
                  [cljs-react-reload           "0.1.1"]
 
                  [org.clojure/core.async      "0.2.385"        :scope "test"]
                  [cljsjs/react-dom-server     "15.2.1-1"       :scope "test"]
-                 [sablono                     "0.7.2"          :scope "test"]
-                 [com.cognitect/transit-clj   "0.8.285"        :scope "test"]
+                 [sablono                     "0.7.3"          :scope "test"]
+                 [com.cognitect/transit-clj   "0.8.288"        :scope "test"]
                  [com.cemerick/piggieback     "0.2.1"          :scope "test"]
                  [pandeiro/boot-http          "0.7.3"          :scope "test"]
                  [adzerk/boot-cljs            "1.7.228-1"      :scope "test"]
